@@ -21,9 +21,13 @@ const geoJsonConfig = ({
   };
 
   /** Must be outside because calls react state setter */
-  const onClusterClick = (zoom: number) => {
+  const onClusterClick = (zoom: number, coordinate: [number, number]) => {
     // TODO: also add coordinates here so it flies to clicked cluster
-    updateViewState({ zoom });
+    updateViewState({
+      zoom,
+      longitude: coordinate[0],
+      latitude: coordinate[1],
+    });
   };
 
   return {

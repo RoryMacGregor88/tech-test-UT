@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 
 import { ParentSize } from '@visx/responsive';
+import numeral from 'numeral';
 import {
   VictoryAxis,
   VictoryBrushContainer,
@@ -9,6 +10,7 @@ import {
   VictoryLabel,
   VictoryLine,
   VictoryScatter,
+  VictoryTooltip,
   VictoryZoomContainer,
 } from 'victory';
 
@@ -44,13 +46,19 @@ const VictoryExample = ({ apiData, pointCount }) => {
     [],
   );
 
-  const defaultZoom = { x: [data[0].startTime, data[2].startTime] };
+  const defaultZoom = { x: [data[0].startTime, data[4].startTime] };
   const [zoomDomain, setZoomDomain] = useState(defaultZoom);
 
   const onZoomDomainChange = ({ x }) => setZoomDomain({ x });
 
   const getXTickFormat = (date: Date) =>
     `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+  const getYTickFormat = (tick: number) => {
+    const format = `${tick > 1000 ? '0.0 a' : '0 a'}`;
+    const result = numeral(tick).format(format);
+    return isNaN(result) ? '' : result;
+  };
 
   const tickValues = data.map(({ startTime }) => startTime);
 
@@ -73,6 +81,7 @@ const VictoryExample = ({ apiData, pointCount }) => {
             width={width}
           >
             <VictoryAxis
+              fixLabelOverlap={false}
               label='Date'
               style={axisStyles}
               tickFormat={getXTickFormat}
@@ -84,6 +93,7 @@ const VictoryExample = ({ apiData, pointCount }) => {
               label='Count'
               padding={10}
               style={axisStyles}
+              tickFormat={getYTickFormat}
             />
             <VictoryGroup>
               <VictoryLine
@@ -97,6 +107,17 @@ const VictoryExample = ({ apiData, pointCount }) => {
 
               <VictoryScatter
                 data={data}
+                labelComponent={
+                  <VictoryTooltip
+                    constrainToVisibleArea
+                    flyoutHeight={40}
+                    flyoutWidth={100}
+                    pointerOrientation='right'
+                    pointerWidth={25}
+                    style={{ fill: '#000' }}
+                  />
+                }
+                labels={({ datum: { _y } }) => `Count: ${_y}`}
                 style={{
                   data: { fill: 'red', stroke: 'red', strokeWidth: 10 },
                 }}
@@ -109,6 +130,7 @@ const VictoryExample = ({ apiData, pointCount }) => {
           <VictoryChart
             containerComponent={
               <VictoryBrushContainer
+                allowResize={false}
                 brushDimension='x'
                 brushDomain={zoomDomain}
                 brushStyle={{

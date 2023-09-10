@@ -19,6 +19,7 @@
     "date-fns": "^2.30.0",
     "deck.gl": "^8.9.27",
     "mapbox-gl": "^2.15.0",
+    "numeral": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-map-gl": "^6.1.21",

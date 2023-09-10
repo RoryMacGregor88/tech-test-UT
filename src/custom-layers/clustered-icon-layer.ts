@@ -163,7 +163,7 @@ class ClusteredIconLayer extends CompositeLayer {
       const isNotGroup = this._getExpansionZoom(feature) <= this.props.maxZoom;
       if (isNotGroup) {
         const expansionZoom = this._getExpansionZoom(feature);
-        return this.props.onClusterClick(expansionZoom);
+        return this.props.onClusterClick(expansionZoom, info.coordinate);
       }
 
       const leaves = this.state.spatialIndex.getLeaves(
