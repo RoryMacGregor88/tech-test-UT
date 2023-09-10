@@ -5,18 +5,18 @@ import { FlyToInterpolator } from '@deck.gl/core/typed';
 import { MapContextType, ViewState } from '~/types';
 
 /** Approximate Edinburgh coordinates */
-const EDINBURGH_COORDS = { longitude: -3.29, latitude: 55.94 };
+const EDINBURGH_COORDS = { longitude: -4.24, latitude: 56.01 };
 
 const INITIAL_VIEW_STATE = {
   ...EDINBURGH_COORDS,
-  zoom: 8,
+  zoom: 5.5,
   pitch: 0,
   bearing: 0,
   transitionDuration: 1000,
   transitionInterpolator: new FlyToInterpolator(),
 };
 
-const DEFAULT_MAP_STYLE = 'mapbox://styles/mapbox/dark-v9';
+const DEFAULT_MAP_STYLE = 'mapbox://styles/mapbox/streets-v12';
 
 export const MapContext = createContext(undefined);
 MapContext.displayName = 'MapContext';

@@ -1,5 +1,6 @@
 import { CompositeLayer, PickingInfo } from '@deck.gl/core/typed';
 import { IconLayer, TextLayer } from '@deck.gl/layers/typed';
+import numeral from 'numeral';
 import Supercluster from 'supercluster';
 
 import { Datum, Feature } from '~/types';
@@ -126,7 +127,9 @@ class ClusteredIconLayer extends CompositeLayer {
     const isNotGroup = this._getExpansionZoom(feature) <= this.props.maxZoom;
     if (cluster && isNotGroup) {
       /** Show point count for clusters, but not groups */
-      return `${point_count}`;
+      return `${numeral(point_count).format(
+        `${point_count > 1000 ? '0.0a' : '0a'}`,
+      )}`;
     }
     /** Hide text layer */
     return '';
@@ -235,10 +238,10 @@ ClusteredIconLayer.defaultProps = {
   groupIconName: DEFAULT_GROUP_ICON_NAME,
   maxZoom: DEFAULT_CLUSTER_MAX_ZOOM,
   radius: DEFAULT_CLUSTER_RADIUS,
-  textIconSize: 15,
+  textIconSize: 12,
   pinIconSize: 40,
   iconSizeScale: 8,
-  clusterIconSize: 40,
+  clusterIconSize: 30,
   hideTextOnGroup: true,
 };
 

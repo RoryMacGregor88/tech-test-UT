@@ -5,8 +5,6 @@ import pinIconConfigFn from '~/custom-layers/pin-icon-config';
 import { useMap } from '~/hooks';
 import { Datum, Feature } from '~/types';
 
-import TestChart from './components/test-chart.component';
-import VictoryExample from './components/victory-example';
 import ClusteredIconLayer from './custom-layers/clustered-icon-layer';
 
 const COLORS = ['red', 'purple', 'green'];
@@ -51,10 +49,6 @@ const App = () => {
   }, []);
 
   return (
-    // <div style={{ width: '50vw', height: '50vh' }}>
-    //   <VictoryExample />
-    // </div>
-    // <TestChart />
     <Map
       clickedInfo={clickedInfo}
       layers={layers}

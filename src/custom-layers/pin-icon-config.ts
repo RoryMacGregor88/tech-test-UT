@@ -1,4 +1,4 @@
-import { ConfigArgs, Feature } from '~/types';
+import { ConfigArgs } from '~/types';
 
 import iconAtlas from './pin-icon-atlas.svg';
 import iconMapping from './pin-icon-mapping.json';
@@ -20,15 +20,13 @@ const geoJsonConfig = ({
     setClickedInfo(info);
   };
 
-  /** Must be outside because calls react state setter */
-  const onClusterClick = (zoom: number, coordinate: [number, number]) => {
-    // TODO: also add coordinates here so it flies to clicked cluster
+  /** Outside because it calls react state setter */
+  const onClusterClick = (zoom: number, coordinate: [number, number]) =>
     updateViewState({
       zoom,
       longitude: coordinate[0],
       latitude: coordinate[1],
     });
-  };
 
   return {
     id,
