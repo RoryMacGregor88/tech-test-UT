@@ -21,7 +21,6 @@ const Popup = ({ data, setClickedInfo }) => {
         style={{
           maxHeight: '50rem',
           width: '50rem',
-          overflowY: 'scroll',
           cursor: 'pointer',
         }}
       >
