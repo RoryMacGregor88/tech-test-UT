@@ -1,6 +1,5 @@
 import { Popup as ReactMapGlPopup } from 'react-map-gl';
 
-import TestChart from './test-chart.component';
 import VictoryExample from './victory-example';
 
 const Popup = ({ data, setClickedInfo }) => {

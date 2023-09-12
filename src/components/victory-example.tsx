@@ -85,7 +85,6 @@ const VictoryExample = ({ apiData, pointCount }) => {
               label='Date'
               style={axisStyles}
               tickFormat={getXTickFormat}
-              tickLabelComponent={<VictoryLabel />}
               tickValues={tickValues}
             />
             <VictoryAxis
@@ -94,12 +93,13 @@ const VictoryExample = ({ apiData, pointCount }) => {
               padding={10}
               style={axisStyles}
               tickFormat={getYTickFormat}
+              tickLabelComponent={<VictoryLabel dx={7.5} />}
             />
             <VictoryGroup>
               <VictoryLine
                 data={data}
                 style={{
-                  data: { stroke: 'red' },
+                  data: { stroke: 'tomato' },
                 }}
                 x='startTime'
                 y='count'
@@ -119,7 +119,7 @@ const VictoryExample = ({ apiData, pointCount }) => {
                 }
                 labels={({ datum: { _y } }) => `Count: ${_y}`}
                 style={{
-                  data: { fill: 'red', stroke: 'red', strokeWidth: 10 },
+                  data: { fill: 'tomato', stroke: 'tomato', strokeWidth: 10 },
                 }}
                 x='startTime'
                 y='count'
@@ -155,7 +155,7 @@ const VictoryExample = ({ apiData, pointCount }) => {
               <VictoryLine
                 data={data}
                 style={{
-                  data: { stroke: 'red' },
+                  data: { stroke: 'tomato' },
                 }}
                 x='startTime'
                 y='count'
@@ -164,7 +164,7 @@ const VictoryExample = ({ apiData, pointCount }) => {
               <VictoryScatter
                 data={data}
                 style={{
-                  data: { fill: 'red', stroke: 'red', strokeWidth: 1 },
+                  data: { fill: 'tomato', stroke: 'tomato', strokeWidth: 1 },
                 }}
                 x='startTime'
                 y='count'

@@ -238,10 +238,10 @@ ClusteredIconLayer.defaultProps = {
   groupIconName: DEFAULT_GROUP_ICON_NAME,
   maxZoom: DEFAULT_CLUSTER_MAX_ZOOM,
   radius: DEFAULT_CLUSTER_RADIUS,
-  textIconSize: 12,
+  textIconSize: 15,
   pinIconSize: 40,
   iconSizeScale: 8,
-  clusterIconSize: 30,
+  clusterIconSize: 40,
   hideTextOnGroup: true,
 };
 
