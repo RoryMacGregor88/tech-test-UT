@@ -20,15 +20,6 @@ interface ShouldUpdateStateArgs {
   };
 }
 
-interface Props {
-  id: string;
-  data: Datum[];
-  iconAtlas: SVGElement;
-  iconMapping: { [key: string]: unknown };
-  clusterIconName: string;
-  clusterSize: number;
-}
-
 class ClusteredIconLayer extends CompositeLayer {
   shouldUpdateState({ changeFlags }: ShouldUpdateStateArgs) {
     return changeFlags.somethingChanged;

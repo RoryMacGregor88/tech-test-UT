@@ -15,6 +15,7 @@ import {
 } from 'victory';
 
 import ChartWrapper from '~/components/chart-wrapper.component';
+import { Datum, GeoJson } from '~/types';
 
 const axisStyles = {
   axis: { fill: 'rgb(255, 255, 255)', stroke: 'rgb(255, 255, 255)' },
@@ -26,17 +27,28 @@ const axisStyles = {
   tickLabels: { fill: 'rgb(255, 255, 255)', fontSize: 15 },
 };
 
-const BrushTimeseriesChart = ({ apiData, pointCount }) => {
+interface TransformedDatum extends Omit<Datum, 'startTime'> {
+  startTime: Date;
+}
+
+interface Props {
+  timeseriesData: GeoJson;
+  pointCount: number;
+}
+
+const BrushTimeseriesChart = ({ timeseriesData, pointCount }: Props) => {
   /** Cache data to prevent re-calculating between renders */
   const data = useMemo(
     () =>
-      apiData
-        .map(({ properties }) => ({
-          ...properties,
-          startTime: new Date(properties.startTime),
-        }))
+      timeseriesData
+        .map(
+          ({ properties }): TransformedDatum => ({
+            ...properties,
+            startTime: new Date(properties.startTime),
+          }),
+        )
         .sort((a, b) => (a.startTime < b.startTime ? -1 : 1))
-        .reduce((acc, cur) => {
+        .reduce((acc: TransformedDatum[], cur) => {
           const isDuplicate = !!acc.find(
             (datum) => datum.startTime === cur.startTime,
           );
@@ -49,7 +61,7 @@ const BrushTimeseriesChart = ({ apiData, pointCount }) => {
   const defaultZoom = { x: [data[0].startTime, data[4].startTime] };
   const [zoomDomain, setZoomDomain] = useState(defaultZoom);
 
-  const onZoomDomainChange = ({ x }) => setZoomDomain({ x });
+  const onZoomDomainChange = ({ x }: { x }) => setZoomDomain({ x });
 
   const getXTickFormat = (date: Date) =>
     `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`;
@@ -57,7 +69,7 @@ const BrushTimeseriesChart = ({ apiData, pointCount }) => {
   const getYTickFormat = (tick: number) => {
     const format = `${tick > 1000 ? '0.0 a' : '0 a'}`;
     const result = numeral(tick).format(format);
-    return isNaN(result) ? '' : result;
+    return isNaN(Number(result)) ? '' : result;
   };
 
   const tickValues = data.map(({ startTime }) => startTime);

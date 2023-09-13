@@ -1,11 +1,10 @@
-import { PickingInfo } from '@deck.gl/core/typed';
 import { Popup as ReactMapGlPopup } from 'react-map-gl';
 
 import VictoryExample from '~/components/brush-timeseries-chart';
-import { SetPickingInfo } from '~/types';
+import { GeoJson, SetPickingInfo } from '~/types';
 
 interface Props {
-  data: PickingInfo;
+  data: GeoJson;
   setPickingInfo: SetPickingInfo;
 }
 

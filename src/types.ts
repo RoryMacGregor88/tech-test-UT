@@ -17,6 +17,12 @@ export type Datum = {
   usmart_id: string;
 };
 
+export type GeoJson = {
+  type: string;
+  geometry: { coordinates: [number, number] };
+  properties: Datum;
+}[];
+
 export type ExtendedPickingInfo = PickingInfo & { leaves: Datum[] };
 
 export type SetPickingInfo = Dispatch<
