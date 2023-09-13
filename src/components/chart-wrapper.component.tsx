@@ -9,7 +9,6 @@ interface Props {
 
 const ChartWrapper = ({ title, pointCount, description, children }: Props) => (
   <div
-    className='flex flex-col rounded-md border-2 bg-black border-black'
     style={{
       border: '2px solid #fff',
       borderRadius: '5px',

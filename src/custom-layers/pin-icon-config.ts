@@ -1,17 +1,31 @@
-import { ConfigArgs } from '~/types';
+import { PickingInfo } from '@deck.gl/core/typed';
+
+import { ACCESSOR_ID } from '~/constants';
+import {
+  Datum,
+  ExtendedPickingInfo,
+  SetPickingInfo,
+  UpdateViewState,
+} from '~/types';
 
 import iconAtlas from './pin-icon-atlas.svg';
 import iconMapping from './pin-icon-mapping.json';
 
-const featureIdAccessor = 'usmart_id';
+interface GeoJsonConfigArgs {
+  id: string;
+  data: Datum[];
+  color: string;
+  updateViewState: UpdateViewState;
+  setPickingInfo: SetPickingInfo;
+}
 
 const geoJsonConfig = ({
   id,
   data,
   color,
   updateViewState,
-  setClickedInfo,
-}: ConfigArgs) => {
+  setPickingInfo,
+}: GeoJsonConfigArgs) => {
   /** Outside layer instance because it calls React state setter */
   const onClusterClick = (zoom: number, coordinate: [number, number]) =>
     updateViewState({
@@ -20,14 +34,14 @@ const geoJsonConfig = ({
       latitude: coordinate[1],
     });
 
-  const onIconClick = (info) => setClickedInfo(info);
+  const onIconClick = (info: ExtendedPickingInfo) => setPickingInfo(info);
 
   return {
     id,
     getIcon: () => `pin-${color}`,
     getGroupIcon: () => `group-${color}`,
     data,
-    featureIdAccessor,
+    featureIdAccessor: ACCESSOR_ID,
     selectedFeature: {},
     onClusterClick,
     onIconClick,

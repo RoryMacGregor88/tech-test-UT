@@ -11,13 +11,15 @@ const DEFAULT_CLUSTER_RADIUS = 40;
 const DEFAULT_CLUSTER_ICON_NAME = 'cluster';
 const DEFAULT_GROUP_ICON_NAME = 'group-red';
 
+const COLOR_PRIMARY = [246, 190, 0, 255];
+const SELECTED_CLUSTER_COLOR = [226, 123, 29];
+
 interface ShouldUpdateStateArgs {
   changeFlags: {
     somethingChanged: boolean;
   };
 }
 
-// TODO: proper type for data
 interface Props {
   id: string;
   data: Datum[];
@@ -72,26 +74,25 @@ class ClusteredIconLayer extends CompositeLayer {
       feature.properties.cluster &&
       this._getExpansionZoom(feature) <= this.props.maxZoom
     ) {
-      return;
-      // /** Get the points within the cluster */
-      // const leaves = this.state.spatialIndex.getLeaves(
-      //   feature.properties.cluster_id,
-      //   'Infinity',
-      // );
+      /** Get the points within the cluster */
+      const leaves = this.state.spatialIndex.getLeaves(
+        feature.properties.cluster_id,
+        'Infinity',
+      );
 
-      // const id = this.props.featureIdAccessor;
+      const id = this.props.featureIdAccessor;
 
-      // /** Check if the selected item is part of this clustered feature */
-      // if (this.props.selectedFeature[id]) {
-      //   const isMatch = leaves.find(
-      //     (leaf) => leaf.properties[id] === this.props.selectedFeature[id],
-      //   );
-      //   if (isMatch) {
-      //     return SELECTED_CLUSTER_COLOR;
-      //   }
-      // }
+      /** Check if the selected item is part of this clustered feature */
+      if (this.props.selectedFeature[id]) {
+        const isMatch = leaves.find(
+          (leaf) => leaf.properties[id] === this.props.selectedFeature[id],
+        );
+        if (isMatch) {
+          return SELECTED_CLUSTER_COLOR;
+        }
+      }
 
-      // return COLOR_PRIMARY;
+      return COLOR_PRIMARY;
     }
     if (typeof this.props.getPinColor === 'function') {
       return this.props.getPinColor(feature);

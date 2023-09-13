@@ -14,7 +14,7 @@ import {
   VictoryZoomContainer,
 } from 'victory';
 
-import ChartWrapper from './chart-wrapper.component';
+import ChartWrapper from '~/components/chart-wrapper.component';
 
 const axisStyles = {
   axis: { fill: 'rgb(255, 255, 255)', stroke: 'rgb(255, 255, 255)' },

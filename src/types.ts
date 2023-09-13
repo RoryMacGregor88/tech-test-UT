@@ -1,39 +1,8 @@
-import { ReactNode, SetStateAction } from 'react';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 
-import { CompositeLayer, FlyToInterpolator } from '@deck.gl/core/typed';
-import { GeoJsonLayer } from '@deck.gl/layers/typed';
+import { FlyToInterpolator, PickingInfo } from '@deck.gl/core/typed';
 
 export type LayerName = 'GeoJsonLayer' | 'ClusteredGeoJsonLayer';
-
-export type Layer = GeoJsonLayer | CompositeLayer;
-
-export type Metadata = {
-  id: string;
-  name: string;
-  description: string;
-  source: string;
-  sourceUrl: string;
-  dataUrl: string;
-  configDefinition: string;
-  classDefinition: LayerName;
-  sidebarComponents: string[];
-  componentProps: string[];
-  mapProps: {
-    zoom: number;
-    longitude: [number, number];
-    latitude: [number, number];
-  };
-};
-
-export type Feature = {
-  properties: { [key: string]: unknown };
-  geometry: { coordinates: [number, number] };
-};
-
-export type GeoJson = {
-  type: string;
-  features: Feature[];
-};
 
 export type Datum = {
   provider: string;
@@ -48,13 +17,11 @@ export type Datum = {
   usmart_id: string;
 };
 
-export interface ConfigArgs {
-  id: string;
-  data: GeoJson;
-  updateViewState: UpdateViewState;
-}
+export type ExtendedPickingInfo = PickingInfo & { leaves: Datum[] };
 
-export type ConfigFactory = (args: ConfigArgs) => { [key: string]: unknown };
+export type SetPickingInfo = Dispatch<
+  SetStateAction<ExtendedPickingInfo | null>
+>;
 
 export interface ViewState {
   longitude: number;

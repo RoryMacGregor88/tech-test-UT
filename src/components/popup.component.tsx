@@ -1,9 +1,16 @@
+import { PickingInfo } from '@deck.gl/core/typed';
 import { Popup as ReactMapGlPopup } from 'react-map-gl';
 
-import VictoryExample from './brush-timeseries-chart';
+import VictoryExample from '~/components/brush-timeseries-chart';
+import { SetPickingInfo } from '~/types';
 
-const Popup = ({ data, setClickedInfo }) => {
-  const handleClose = () => setClickedInfo([]);
+interface Props {
+  data: PickingInfo;
+  setPickingInfo: SetPickingInfo;
+}
+
+const Popup = ({ data, setPickingInfo }: Props) => {
+  const handleClose = () => setPickingInfo(null);
 
   const firstFeatureCoords = data[0].geometry.coordinates,
     coords = {
@@ -11,12 +18,7 @@ const Popup = ({ data, setClickedInfo }) => {
       latitude: firstFeatureCoords[1],
     };
   return (
-    <ReactMapGlPopup
-      offset={60}
-      onClose={handleClose}
-      {...coords}
-      captureScroll
-    >
+    <ReactMapGlPopup onClose={handleClose} {...coords} captureScroll>
       <div
         style={{
           maxHeight: '50rem',

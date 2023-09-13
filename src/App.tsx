@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 
+import { CompositeLayer } from '@deck.gl/core/typed';
+
 import { Map } from '~/components';
 import pinIconConfigFn from '~/custom-layers/pin-icon-config';
 import { useMap } from '~/hooks';
-import { Datum, Feature } from '~/types';
+import { Datum, ExtendedPickingInfo } from '~/types';
 
 import ClusteredIconLayer from './custom-layers/clustered-icon-layer';
 
@@ -24,36 +26,43 @@ const urls = [
 const App = () => {
   const { viewState, updateViewState, mapStyle } = useMap();
 
-  const [layers, setLayers] = useState([]);
-  const [clickedInfo, setClickedInfo] = useState<Feature[]>([]);
+  const [layers, setLayers] = useState<CompositeLayer[]>([]);
+  const [pickingInfo, setPickingInfo] = useState<ExtendedPickingInfo | null>(
+    null,
+  );
 
   useEffect(() => {
     /** Immediate function that will run as soon as it is defined */
     (async () => {
       const promises = urls.map((url) => fetch(url));
-      const dataArray = await Promise.all(promises).then((results) =>
+
+      const dataArray = (await Promise.all(promises).then((results) =>
         results.map((result) => result.json()),
-      );
+      )) as Datum[][];
+
       const layerInstances = dataArray.map((data, i) => {
         const config = pinIconConfigFn({
           id: `cluster-${i + 1}`,
           color: COLORS[i],
           data,
           updateViewState,
-          setClickedInfo,
+          setPickingInfo,
         });
+
         return new ClusteredIconLayer(config);
       });
+
       setLayers(layerInstances);
     })();
-  }, []);
+  }, [updateViewState]);
 
   return (
     <Map
-      clickedInfo={clickedInfo}
       layers={layers}
       mapStyle={mapStyle}
-      setClickedInfo={setClickedInfo}
+      pickingInfo={pickingInfo}
+      setPickingInfo={setPickingInfo}
+      updateViewState={updateViewState}
       viewState={viewState}
     />
   );
