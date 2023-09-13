@@ -61,7 +61,7 @@ const BrushTimeseriesChart = ({ timeseriesData, pointCount }: Props) => {
   const defaultZoom = { x: [data[0].startTime, data[4].startTime] };
   const [zoomDomain, setZoomDomain] = useState(defaultZoom);
 
-  const onZoomDomainChange = ({ x }: { x }) => setZoomDomain({ x });
+  const onZoomDomainChange = ({ x }) => setZoomDomain({ x });
 
   const getXTickFormat = (date: Date) =>
     `${date.getDate() + 1}/${date.getMonth() + 1}/${date.getFullYear()}`;

@@ -1,6 +1,6 @@
 import { Popup as ReactMapGlPopup } from 'react-map-gl';
 
-import VictoryExample from '~/components/brush-timeseries-chart';
+import { BrushTimeseriesChart } from '~/components';
 import { GeoJson, SetPickingInfo } from '~/types';
 
 interface Props {
@@ -25,7 +25,7 @@ const Popup = ({ data, setPickingInfo }: Props) => {
           cursor: 'pointer',
         }}
       >
-        <VictoryExample apiData={data} pointCount={data.length} />
+        <BrushTimeseriesChart pointCount={data.length} timeseriesData={data} />
       </div>
     </ReactMapGlPopup>
   );
