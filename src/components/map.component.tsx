@@ -29,33 +29,8 @@ const Map = ({
         mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN}
       />
       {!!clickedInfo.object ? (
-        <Popup
-          // selectedFeatures={selectedFeatures}
-          data={data}
-          setClickedInfo={setClickedInfo}
-          // setSelectedFeatures={setSelectedFeatures}
-        />
+        <Popup data={data} setClickedInfo={setClickedInfo} />
       ) : null}
-      {/* {clickedInfo.object ? (
-        <div
-          style={{
-            position: 'absolute',
-            zIndex: 1000,
-            pointerEvents: 'none',
-            left: clickedInfo.x,
-            top: clickedInfo.y,
-          }}
-        >
-          {clickedInfo.object.message ?? 'HELLO THERE'}
-          <button
-            onClick={() => {
-              console.log('CLICKED!!!');
-            }}
-          >
-            CLICK
-          </button>
-        </div>
-      ) : null} */}
     </Deck>
   );
 };

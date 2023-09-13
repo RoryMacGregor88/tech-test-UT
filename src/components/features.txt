@@ -1,9 +1,0 @@
-click to zoom to expansion as well as cluster coordinates
-
-color-coded icons
-
-group pins if more than one feature with same coords
-
-Hide y axis values if all 0
-
-brush container for time series

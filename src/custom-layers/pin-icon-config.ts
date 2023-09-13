@@ -12,21 +12,15 @@ const geoJsonConfig = ({
   updateViewState,
   setClickedInfo,
 }: ConfigArgs) => {
-  // const onFeatureClick = (feature: Feature) => {
-  //   setSelectedFeatures([feature]);
-  // };
-
-  const onIconClick = (info) => {
-    setClickedInfo(info);
-  };
-
-  /** Outside because it calls react state setter */
+  /** Outside layer instance because it calls React state setter */
   const onClusterClick = (zoom: number, coordinate: [number, number]) =>
     updateViewState({
       zoom,
       longitude: coordinate[0],
       latitude: coordinate[1],
     });
+
+  const onIconClick = (info) => setClickedInfo(info);
 
   return {
     id,

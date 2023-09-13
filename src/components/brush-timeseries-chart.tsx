@@ -26,8 +26,8 @@ const axisStyles = {
   tickLabels: { fill: 'rgb(255, 255, 255)', fontSize: 15 },
 };
 
-const VictoryExample = ({ apiData, pointCount }) => {
-  /** Memoize data to prevent re-calculating between renders */
+const BrushTimeseriesChart = ({ apiData, pointCount }) => {
+  /** Cache data to prevent re-calculating between renders */
   const data = useMemo(
     () =>
       apiData
@@ -177,4 +177,4 @@ const VictoryExample = ({ apiData, pointCount }) => {
   );
 };
 
-export default VictoryExample;
+export default BrushTimeseriesChart;

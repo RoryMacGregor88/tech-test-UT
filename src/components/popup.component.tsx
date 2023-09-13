@@ -1,6 +1,6 @@
 import { Popup as ReactMapGlPopup } from 'react-map-gl';
 
-import VictoryExample from './victory-example';
+import VictoryExample from './brush-timeseries-chart';
 
 const Popup = ({ data, setClickedInfo }) => {
   const handleClose = () => setClickedInfo([]);

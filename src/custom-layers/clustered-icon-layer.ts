@@ -11,13 +11,6 @@ const DEFAULT_CLUSTER_RADIUS = 40;
 const DEFAULT_CLUSTER_ICON_NAME = 'cluster';
 const DEFAULT_GROUP_ICON_NAME = 'group-red';
 
-// TODO: change these
-const COLOR_TRANSPARENT = [0, 0, 0, 0],
-  COLOR_PRIMARY = [246, 190, 0, 255],
-  COLOR_SECONDARY = [51, 63, 72, 255];
-
-const SELECTED_CLUSTER_COLOR = [226, 123, 29];
-
 interface ShouldUpdateStateArgs {
   changeFlags: {
     somethingChanged: boolean;
@@ -40,15 +33,13 @@ class ClusteredIconLayer extends CompositeLayer {
   }
 
   _getDataAsGeoJson(data: Datum[]) {
-    const result = data.map(({ latitude, longitude, ...properties }) => ({
+    return data.map(({ latitude, longitude, ...properties }) => ({
       geometry: { type: 'Point', coordinates: [longitude, latitude] },
       properties,
     }));
-    return result;
   }
 
   updateState({ props, oldProps, changeFlags }) {
-    // TODO: can these come from props above?
     const { maxZoom, radius } = this.props;
 
     const shouldRebuildSpatialIndex =
@@ -117,7 +108,6 @@ class ClusteredIconLayer extends CompositeLayer {
 
       return isSelected ? [255, 99, 71, 255] : [15, 10, 222, 255];
     }
-    // TODO: what is this color? Default color?
     return [15, 10, 222, 255];
   }
 
@@ -141,16 +131,13 @@ class ClusteredIconLayer extends CompositeLayer {
         ? this.props.getGroupIcon(feature)
         : this.props.clusterIconName;
     }
-    // TODO: this was a ternary before
     return this.props.getIcon(feature);
   }
 
   _getIconSize(feature: Feature) {
     if (feature.properties.cluster) {
-      // TODO: this was different, involved group icon and _getExpansionZoom
       return this.props.clusterIconSize;
     }
-    // TODO: this was a ternary before
     return this.props.pinIconSize;
   }
 
